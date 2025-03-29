@@ -1,0 +1,12 @@
+---
+title: "Mon site Bookdown"
+author: "Thomas Husson"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+output: bookdown::html_document2
+---
+
+# Bienvenue
+
+Ceci est un test pour créer un site avec **Bookdown**.
