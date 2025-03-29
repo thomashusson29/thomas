@@ -204,6 +204,23 @@ Votre site Bookdown est en ligne ! 🎉
 
 ---
 
-```
 
-Souhaite-tu que je te le mette directement dans ton dépôt GitHub en tant que `README.md` ?
+
+✅ Étapes à refaire à chaque mise à jour :
+Tu modifies ton contenu .Rmd (ex : index.Rmd, etc.)
+
+Dans RStudio, tu lances à nouveau :
+
+r
+
+bookdown::render_book("index.Rmd", "bookdown::gitbook")
+Cela va recréer le dossier docs/ avec les fichiers HTML à jour.
+
+Puis, dans le terminal :
+
+bash
+git add .
+git commit -m "Mise à jour du site"
+git push
+⏳ GitHub Pages va mettre ton site à jour automatiquement sous quelques secondes/minutes.
+
