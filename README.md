@@ -79,81 +79,88 @@ Les contributions sont les bienvenues !
 ---
 
 ```markdown
-# Créer un site Bookdown et le publier sur GitHub Pages 🚀
+# Créer un site Bookdown et le publier sur GitHub Pages
 
-Voici un guide simple pour créer un site avec **Bookdown**, l’héberger sur **GitHub Pages**, et pouvoir le mettre à jour facilement.
-
----
+Ce tutoriel vous guide pas à pas pour créer un site web avec **Bookdown** et le publier gratuitement avec **GitHub Pages**.
 
 ## 🧰 Prérequis
 
-- Un compte GitHub
-- R et RStudio installés sur ton ordinateur
-- Le package `bookdown` installé dans R :
+- Avoir un compte GitHub
+- Avoir installé R, RStudio et les packages suivants :
+  ```r
+  install.packages("bookdown")
+  ```
 
-```r
-install.packages("bookdown")
+- Avoir installé Git sur votre ordinateur : [https://git-scm.com/downloads](https://git-scm.com/downloads)
+
+## 🧱 Étapes
+
+### 1. Cloner un dépôt GitHub vide (ou le vôtre)
+
+```bash
+git clone https://github.com/votre-utilisateur/nom-du-depot.git
+cd nom-du-depot
+```
+
+> ⚠️ Remplacez `votre-utilisateur` et `nom-du-depot` par les bons noms.  
+> Vous pouvez aussi créer le dépôt d'abord sur GitHub, puis le cloner.
+
+---
+
+### 2. Créer la structure d’un site Bookdown
+
+Dans RStudio (dans le dossier cloné) :
+
+1. **Ouvrez un nouveau projet R dans le dossier cloné**
+2. Créez un fichier `index.Rmd` avec ce contenu minimal :
+
+```markdown
+---
+title: "Mon site Bookdown"
+author: "Moi"
+site: bookdown::bookdown_site
+documentclass: book
+output: bookdown::gitbook
+---
+
+# Bienvenue
+
+Ceci est un site généré avec **Bookdown**.
+```
+
+3. (Optionnel) Créez un autre chapitre, par exemple `premier-chapitre.Rmd` :
+
+```markdown
+# Premier chapitre
+
+Voici un chapitre d'exemple.
+```
+
+4. Créez un fichier `_bookdown.yml` :
+
+```yaml
+book_filename: "mon_site"
+output_dir: "docs"
+rmd_files: ["index.Rmd", "premier-chapitre.Rmd"]
 ```
 
 ---
 
-## 🛠️ Étapes de création
+### 3. Générer le site Bookdown
 
-### 1. Cloner ton dépôt GitHub
-
-```bash
-git clone https://github.com/<TON-UTILISATEUR>/<NOM-DEPOT>.git
-cd <NOM-DEPOT>
-```
-
-Remplace `<TON-UTILISATEUR>` et `<NOM-DEPOT>` par les bons noms.
-
-### 2. Créer les fichiers Bookdown dans RStudio
-
-Dans le dossier cloné, créer un projet RStudio (`.Rproj`) puis ajouter ces fichiers :
-
-- `index.Rmd` → page d’accueil du site
-- `mon_premier_chapitre.Rmd` → un chapitre du site
-- `_bookdown.yml` → indique le nom du fichier HTML de sortie :
-
-```yaml
-book_filename: "index"
-output_dir: "docs"
-```
-
-- `_output.yml` → spécifie le style du site :
-
-```yaml
-bookdown::gitbook:
-  css: style.css
-  split_by: chapter
-  config:
-    toc:
-      collapse: none
-      before: |
-        <li><a href="./index.html">Accueil</a></li>
-    download: ["pdf", "epub"]
-```
-
-Tu peux aussi ajouter un fichier `README.md` pour décrire ton projet.
-
-### 3. Générer le site dans RStudio
-
-Dans la console RStudio :
+Dans RStudio, exécutez :
 
 ```r
 bookdown::render_book("index.Rmd", "bookdown::gitbook")
 ```
 
-Le site est généré dans le dossier `docs/`.
+Un dossier `docs/` sera généré avec le site web dedans.
 
 ---
 
-## 🚀 Mettre en ligne sur GitHub Pages
+### 4. Commiter et envoyer sur GitHub
 
-### 1. Commits & push
-
-Dans le terminal ou Git Bash :
+Dans Git Bash ou le terminal :
 
 ```bash
 git add .
@@ -161,49 +168,42 @@ git commit -m "Ajout du site Bookdown"
 git push
 ```
 
-### 2. Activer GitHub Pages
+---
 
-- Va dans **Settings > Pages** de ton dépôt GitHub
-- Choisis **Source : branch `main`, folder `/docs`**
-- Clique sur **Save**
+### 5. Activer GitHub Pages
 
-Ton site sera disponible à l’adresse :
-
-```
-https://<TON-UTILISATEUR>.github.io/<NOM-DEPOT>
-```
+1. Aller dans **Settings > Pages** du dépôt GitHub
+2. Source : **Deploy from branch**  
+   Branch: `main`, folder: `/docs`
+3. Valider : GitHub Pages sera actif à l’URL  
+   `https://votre-utilisateur.github.io/nom-du-depot`
 
 ---
 
-## ✅ Astuce pour mise à jour
+### ✅ Résultat
 
-À chaque fois que tu veux mettre à jour :
-
-1. Modifier les fichiers `.Rmd`
-2. Re-lancer `bookdown::render_book(...)`
-3. Faire `git add .`, `git commit -m "update"` puis `git push`
+Votre site Bookdown est en ligne ! 🎉
 
 ---
 
-## 📁 Exemple de structure minimale
+### 🔁 Mettre à jour le site
+
+À chaque modification :
+
+1. Modifier vos `.Rmd`
+2. Regénérer avec `bookdown::render_book(...)`
+3. `git add . && git commit -m "Update site" && git push`
+
+---
+
+### 📌 Conseils
+
+- Gardez tous vos `.Rmd` dans l’ordre dans `_bookdown.yml`
+- N’écrivez rien manuellement dans `docs/` : c’est généré automatiquement
+- Vous pouvez ajouter un fichier `README.md` dans le dépôt pour la présentation sur GitHub
+
+---
 
 ```
-.
-├── index.Rmd
-├── mon_premier_chapitre.Rmd
-├── _bookdown.yml
-├── _output.yml
-├── README.md
-├── thomas.Rproj
-└── docs/
 
-
-
-
-
-
-
-
-
-
-
+Souhaite-tu que je te le mette directement dans ton dépôt GitHub en tant que `README.md` ?
